@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Covid19PandemicTracker.Views.CoronaStatsGlobalPage"
+             xmlns:custom="clr-namespace:Covid19PandemicTracker.CustomControls"
+             BackgroundColor="#f3f4f5"
+             BackgroundImageSource="GradientBackground.jpg">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame">
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="WidthRequest" Value="80"/>
+                <Setter Property="HeightRequest" Value="80"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+
+            <Style TargetType="StackLayout">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+                <Setter Property="Margin" Value="0,15,0,15"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
+              AbsoluteLayout.LayoutFlags="All"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill"
+              Padding="-1,0,-6,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="0"
+                             Margin="0,0,0,20"
+                             Grid.ColumnSpan="2">
+                    <Image Source="CoronaImage.jpg"              
+                       HorizontalOptions="Fill"/>
+                    <!--<BoxView HeightRequest="2" Color="White"/>-->
+                </StackLayout>
+
+                <StackLayout Grid.Row="1"
+                         Grid.ColumnSpan="2"
+                         Spacing="15">
+                    <!--Picker for selecting country-->
+                    <custom:CustomPicker x:Name="picker"
+                                         HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="CenterAndExpand"
+                                         TitleColor="Black"
+                                         TextColor="Black"
+                                         Title="Select a country"
+                                         Icon="ic_arrow_drop_down.png"
+                                         HeightRequest="50"
+                                         ItemsSource="{Binding Countries}"
+                                         SelectedIndex="{Binding SelectedIndex}"
+                                         SelectedIndexChanged="picker_SelectedIndexChanged">
+                        <d:Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>India</x:String>
+                                <x:String>USA</x:String>
+                                <x:String>Canada</x:String>
+                                <x:String>Italy</x:String>
+                                <x:String>Iran</x:String>
+                            </x:Array>
+                        </d:Picker.ItemsSource>
+                    </custom:CustomPicker>
+                    <!--stacklayout containing frames for cases-->
+                    <StackLayout Orientation="Horizontal"
+                                 Spacing="20"
+                                 Margin="0,45,0,40">
+                        <!--total cases frame-->
+                        <Frame>
+                            <StackLayout Margin="5">
+                                <Image Source="casesIcon.png"
+                                   HeightRequest="30"
+                                   WidthRequest="30"/>
+                                <Label Text="CASES"
+                                   FontAttributes="Bold"/>
+                                <Label d:Text="140000"
+                                   x:Name="lblConfirmed" Text="{Binding Confirmed}"
+                                   TextColor="Gray"/>
+                            </StackLayout>
+                        </Frame>
+                        <!--Deaths frame-->
+                        <Frame>
+                            <StackLayout Margin="5">
+                                <Image Source="deathIcon.png"
+                                   HeightRequest="30"
+                                   WidthRequest="30"/>
+                                <Label Text="DEATHS"
+                                   FontAttributes="Bold"/>
+                                <Label d:Text="50"
+                                   TextColor="Red"
+                                   x:Name="lblDeaths" Text="{Binding Deaths}"/>
+                            </StackLayout>
+                        </Frame>
+                        <!--Recovered Frame-->
+                        <Frame>
+                            <StackLayout Margin="5">
+                                <Image Source="recoveryIcon.png"
+                                   HeightRequest="30"
+                                   WidthRequest="30"/>
+                                <Label Text="RECOVERED"
+                                   FontAttributes="Bold"/>
+                                <Label d:Text="50"
+                                   TextColor="Green"
+                                   x:Name="lblrecovered" Text="{Binding Recovered}"/>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Grid.Row="2"
+                             Grid.ColumnSpan="2"
+                             Margin="0,15,0,0"
+                             HorizontalOptions="Center"
+                             VerticalOptions="End">
+                    <Image 
+                   HeightRequest="100"
+                   WidthRequest="100"
+                   Source="stayHome.png"
+                   VerticalOptions="EndAndExpand"
+                   HorizontalOptions="Center"/>
+                </StackLayout>
+
+                <!--Text="{Binding Source=Date, Path=Value,
+                                StringFormat='Results as on {0}'}"-->
+                <Label Grid.Row="3"
+                       Grid.ColumnSpan="2"
+                       HorizontalOptions="Center"
+                       VerticalOptions="End"
+                       d:Text="Results as on 2020-30-3"
+                       TextColor="White"
+                       Text="{Binding Date}"/>
+            </Grid>
+
+            <BoxView AbsoluteLayout.LayoutFlags="All"
+                     IsVisible="{Binding IsBusy}"
+                     d:IsVisible="True"
+                     BackgroundColor="Transparent"
+                     AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand"/>
+            <ActivityIndicator HorizontalOptions="CenterAndExpand"
+                               AbsoluteLayout.LayoutFlags="PositionProportional"
+                               AbsoluteLayout.LayoutBounds="0.5,0.42"
+                               VerticalOptions="CenterAndExpand"
+                               d:IsVisible="True"
+                               d:IsRunning="True"
+                               Color="Red"
+                               IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
