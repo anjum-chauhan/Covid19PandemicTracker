@@ -52,6 +52,13 @@
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidKeyStore>false</AndroidKeyStore>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
+    <AndroidSupportedAbis />
+    <AndroidSigningKeyStore>C:\Users\anjumchauhan\AppData\Local\Xamarin\Mono for Android\Keystore\Covid19PandemicTracker\Covid19PandemicTracker.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>9816369720</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>covid</AndroidSigningKeyAlias>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

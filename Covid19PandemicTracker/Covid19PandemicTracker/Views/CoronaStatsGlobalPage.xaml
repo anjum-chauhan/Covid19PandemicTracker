@@ -165,7 +165,7 @@
                                VerticalOptions="CenterAndExpand"
                                d:IsVisible="True"
                                d:IsRunning="True"
-                               Color="Red"
+                               Color="#00BFFF"
                                IsVisible="{Binding IsBusy}"
                                IsRunning="{Binding IsBusy}"/>
         </AbsoluteLayout>

@@ -108,9 +108,16 @@ namespace Covid19PandemicTracker.ViewModels
                 IsBusy = true;
                 var date = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
                 var temp = date.Split('-');
-                int outparam;
-                _ = int.TryParse(temp[1], out outparam);
-                string newdate = $"{temp[0]}-{outparam}-{temp[2]}";
+
+                //for removing 0 from the month e.g 04 to 4
+                int outparamMonth;
+                _ = int.TryParse(temp[1], out outparamMonth);
+
+                //for removing 0 from the day part e.g 04 to 4
+                int outparamDay;
+                _ = int.TryParse(temp[2], out outparamDay);
+
+                string newdate = $"{temp[0]}-{outparamMonth}-{outparamDay}";
                 var covidData = dataStore.GetCoronaDataCountryWise(selectedCountry, newdate);
                 if (covidData != null)
                 {
